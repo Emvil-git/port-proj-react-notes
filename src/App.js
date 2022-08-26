@@ -1,30 +1,56 @@
-import logo from './logo.svg';
-import { useState } from 'react';
+import React from 'react';
+import { List } from 'react-bootstrap-icons';
 import Note from './components/Note';
 
+const {useState} = React;
+
 function App() {
-  let maxNoteId = appNotes.length;
+  const date = new Date();
   
   //CONSTANTS
+  const initialState = {
+      noteId: 0,
+      colour: '#8ba4f3',
+      title: '',
+      text: "Click the Edit Button to edit notes",
+      date: date.toString().substr(4,11)
+  }
+
   const [appNotes, setAppNotes] = useState([]);
 
-  //METHODS
-  // const hasNotes = () => {
+  console.log(appNotes);
 
-  // }
+  //METHODS
+
   
+
   const handleAddNotes = () => {
     const date = new Date();
 
-    appNotes.append(
-      {
-        noteId: maxNoteId,
-        color: '#8ba4f3',
-        title: '',
-        text: "Click the Edit Button to edit notes",
-        date: date.toString().substr(4,11)
-      }
-    )
+    const maxNoteId = appNotes.length;
+
+    const cloneArr = appNotes.map(note => {return note});
+
+    const newNote = {
+      noteId: maxNoteId,
+      colour: '#8ba4f3',
+      title: '',
+      text: "Click the Edit Button to edit notes",
+      date: date.toString().substr(4,11)
+    }
+
+    setAppNotes([...appNotes, {
+      noteId: maxNoteId,
+      colour: '#8ba4f3',
+      title: '',
+      text: "Click the Edit Button to edit notes",
+      date: date.toString().substr(4,11)
+    }])
+
+  }
+
+  const handleEditNote = () => {
+    
   }
 
   return (
@@ -37,12 +63,14 @@ function App() {
         {/* dynamic search */}
         {/* night mode toggle */}
 
-        <button>Add Note</button>
+        <button onClick={handleAddNotes}>Add Note</button>
       </div>
       <div className="App__main">
-        {appNotes.map(note => <Note />)}
-        {/* notes here */}
-        {/* add notes */}
+        {console.log('braces thing run')}
+        {console.log(appNotes)}
+        {console.log('-------------------')}
+        {Object.values(appNotes).map(note => <Note key={note.noteId} noteId={note.noteId} colour={note.colour} title={note.title} text={note.text} date={note.date} appNotes={appNotes} setAppNotes={setAppNotes}/>)}
+        {/* {appNotes.map(note => <Note key={note.noteId} noteId={note.noteId} colour={note.colour} title={note.title} text={note.text} date={note.date} appNotes={appNotes} setAppNotes={setAppNotes}/>)} */}
       </div>
     </div>
   );
