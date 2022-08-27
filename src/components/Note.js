@@ -8,7 +8,6 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
     const [eTitle, setETitle] = useState("");
     const [eText, setEText] = useState("");
 
-
 //METHODS
 
     const starIndicate = () => {
@@ -68,7 +67,10 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
                 <section className="note__footer">
                     <span className="note__date">{date}</span>
                     <section className="note__actions">
-                        <input type="submit"></input>
+                        <button type="submit">
+                            <CheckLg/>
+                        </button>
+                        {/* <input type="submit"></input> */}
                     </section>
                 </section>
             </form>
@@ -91,7 +93,7 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
     }
 
     return(
-        <div className="note">
+        <div className="note" style={{background:colour}}>
             
             {editToggle()}
 
