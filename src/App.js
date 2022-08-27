@@ -4,43 +4,40 @@ import Note from './components/Note';
 
 const {useState} = React;
 
+let maxId = 1;
+
 function App() {
+//INITIALIZE NOTE
   const date = new Date();
   
-  //CONSTANTS
   const initialState = {
       noteId: 0,
       colour: '#8ba4f3',
-      title: '',
-      text: "Click the Edit Button to edit notes",
+      title: 'Welcome!',
+      text: "Click the Add Note button to add a Note",
       date: date.toString().substr(4,11)
   }
 
-  const [appNotes, setAppNotes] = useState([]);
+//CONSTANTS
+  const [appNotes, setAppNotes] = useState([initialState]);
+  const [search, setSearch] = useState('');
 
   console.log(appNotes);
 
   //METHODS
-
-  
+  const dynamicSearch = () => {
+    return Object.values(appNotes)
+    .filter(note => note.title.toLowerCase().includes(search.toLowerCase()) || note.text.toLowerCase().includes(search.toLowerCase()))
+    .map(note => <Note key={note.noteId} nNoteId={note.noteId} colour={note.colour} title={note.title} text={note.text} date={note.date} appNotes={appNotes} setAppNotes={setAppNotes}/>)
+  }
 
   const handleAddNotes = () => {
     const date = new Date();
 
-    const maxNoteId = appNotes.length;
-
-    const cloneArr = appNotes.map(note => {return note});
-
-    const newNote = {
-      noteId: maxNoteId,
-      colour: '#8ba4f3',
-      title: '',
-      text: "Click the Edit Button to edit notes",
-      date: date.toString().substr(4,11)
-    }
+    maxId++;
 
     setAppNotes([...appNotes, {
-      noteId: maxNoteId,
+      noteId: maxId,
       colour: '#8ba4f3',
       title: '',
       text: "Click the Edit Button to edit notes",
@@ -49,16 +46,19 @@ function App() {
 
   }
 
-  const handleEditNote = () => {
-    
-  }
-
   return (
     <div className="App">
       <div className="App__toolbar">
         <section>
-          <h1>MK Notes</h1>
+          <h1 className="App__title">MK Notes</h1>
         </section>
+
+        <input
+        placeholder='Search'
+        value={search}
+        onChange={(ev) => setSearch(ev.target.value)}
+        />
+
 
         {/* dynamic search */}
         {/* night mode toggle */}
@@ -66,11 +66,12 @@ function App() {
         <button onClick={handleAddNotes}>Add Note</button>
       </div>
       <div className="App__main">
-        {console.log('braces thing run')}
+        {console.log('ALLNOTES:')}
         {console.log(appNotes)}
         {console.log('-------------------')}
-        {Object.values(appNotes).map(note => <Note key={note.noteId} nNoteId={note.noteId} colour={note.colour} title={note.title} text={note.text} date={note.date} appNotes={appNotes} setAppNotes={setAppNotes}/>)}
-        {/* {appNotes.map(note => <Note key={note.noteId} noteId={note.noteId} colour={note.colour} title={note.title} text={note.text} date={note.date} appNotes={appNotes} setAppNotes={setAppNotes}/>)} */}
+        {console.log('FILTERED NOTES:')}
+        {console.log(dynamicSearch())}
+        {dynamicSearch()}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pencil, CheckLg, Trash3, MusicNoteBeamed } from 'react-bootstrap-icons';
+import { Pencil, CheckLg, Trash3 } from 'react-bootstrap-icons';
 
 const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
 //CONSTANTS
@@ -33,7 +33,6 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
         console.log(cloneNotes)
 
         setAppNotes(cloneNotes);
-        // setAppNotes([...appNotes, appNotes[noteId] = editedNote]);
         console.log(appNotes);
         setIsEditing(false);
         console.log('========EDITED!!==============')
@@ -93,11 +92,6 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
 
     return(
         <div className="note">
-            {/* <section className="note__header">
-                <h1 className="note__title">{title}</h1>
-                {starIndicate()}
-            </section>
-            <p className="note__text">{text}</p> */}
             
             {editToggle()}
 
