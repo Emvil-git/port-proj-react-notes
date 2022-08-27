@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlusLg } from 'react-bootstrap-icons';
+import { Plus, Search } from 'react-bootstrap-icons';
 import Note from './components/Note';
 
 const {useState} = React;
@@ -59,7 +59,7 @@ function App() {
     setAppNotes([...appNotes, {
       noteId: maxId,
       colour: addColour,
-      title: '',
+      title: 'New Note',
       text: "Click the Edit Button to edit notes",
       date: date.toString().substr(4,11)
     }])
@@ -88,24 +88,36 @@ function App() {
           <h1 className="App__title">MK Notes</h1>
         </section>
 
-        <input
-        placeholder='Search'
-        value={search}
-        onChange={(ev) => setSearch(ev.target.value)}
-        />
+        <section>
+          <section className="App__search-cont">
+            <Search className='App__search-icon'/>
+            <input
+            className='App__dyna-search'
+            placeholder='Search'
+            value={search}
+            onChange={(ev) => setSearch(ev.target.value)}
+            />
+          </section>
+
+          <section className='App__add-supercont'>
+            <div className="App__add-cont">
+              <button className="App__add-btn" onClick={() => setColorAccToggle(!colorAccToggle)}>
+                <Plus className="App__add-icon"/>
+              </button>
+              {colorSelect()}
+            </div>
+          </section>
+          
+        </section>
+
+        
 
 
         {/* dynamic search */}
         {/* night mode toggle */}
 
-        <div className="App_add-btn">
-          <button onClick={() => setColorAccToggle(!colorAccToggle)}>
-            <PlusLg/>
-          </button>
-          {colorSelect()}
-        </div>
+        
 
-        <button onClick={handleAddNotes}>Add Note</button>
       </div>
       <div className="App__main">
         {console.log('ALLNOTES:')}

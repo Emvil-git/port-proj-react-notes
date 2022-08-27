@@ -1,5 +1,18 @@
 .note{
+    width: 90%;
+
     &__body{
         display: flex;
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    &__title{
+        font-size: 1.25rem;
+        margin: 0;
+    }
+
+    &__footer{
+        display:flex;
     }
 }

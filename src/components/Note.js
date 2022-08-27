@@ -5,8 +5,8 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
 //CONSTANTS
     const [isStar, setIsStar] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
-    const [eTitle, setETitle] = useState("");
-    const [eText, setEText] = useState("");
+    const [eTitle, setETitle] = useState(title);
+    const [eText, setEText] = useState(text);
 
 //METHODS
 
@@ -78,8 +78,8 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
 
         return(
             <div className="note__body">
-                <h1>{title}</h1>
-                <span>{text}</span>
+                <h1 className="note__title">{title}</h1>
+                <span className="note__text">{text}</span>
 
                 <section className="note__footer">
                     <span className="note__date">{date}</span>
