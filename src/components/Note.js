@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pencil, CheckLg, Trash3 } from 'react-bootstrap-icons';
+import { PencilFill, CheckLg, Trash3Fill } from 'react-bootstrap-icons';
 
 const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
 //CONSTANTS
@@ -67,8 +67,8 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
                 <section className="note__footer">
                     <span className="note__date">{date}</span>
                     <section className="note__actions">
-                        <button type="submit">
-                            <CheckLg/>
+                        <button type="submit" className="note__action-btn">
+                            <CheckLg className="note__btn-icon"/>
                         </button>
                         {/* <input type="submit"></input> */}
                     </section>
@@ -84,8 +84,8 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
                 <section className="note__footer">
                     <span className="note__date">{date}</span>
                     <section className="note__actions">
-                        <button onClick={() => {setIsEditing(true)}}><Pencil/></button>
-                        <button onClick={handleNoteDelete}><Trash3/></button>
+                        <button className="note__action-btn" onClick={() => {setIsEditing(true)}}><PencilFill className="note__btn-icon"/></button>
+                        <button className="note__action-btn" onClick={handleNoteDelete}><Trash3Fill className="note__btn-icon"/></button>
                     </section>
                 </section>
             </div>

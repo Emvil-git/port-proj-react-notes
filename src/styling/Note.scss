@@ -1,6 +1,10 @@
 .note{
     width: 90%;
 
+    border-radius: 15px;
+
+    margin-bottom: 1rem;
+
     &__body{
         display: flex;
         flex-direction: column;
@@ -10,9 +14,39 @@
     &__title{
         font-size: 1.25rem;
         margin: 0;
+        margin-bottom: 0.5rem;
     }
 
     &__footer{
         display:flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-top: 1rem;
+    }
+
+    &__date{
+        font-weight: 600;
+        font-size: 0.85rem;
+    }
+
+    &__action-btn{
+        margin-left: 0.25rem;
+        height: 2.25rem;
+        width: 2.25rem;
+
+        outline: none;
+        border: none;
+
+        border-radius: 100%;
+
+        color: $light-prim;
+        background-color: $dark-prim;
+
+        box-shadow: 3px 3px 6px -4px rgba(0,0,0,0.27);
+    }
+
+    &__btn-icon{
+        margin-bottom: -0.13rem;
     }
 }

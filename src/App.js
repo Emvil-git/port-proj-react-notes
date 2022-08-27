@@ -14,7 +14,7 @@ function App() {
       noteId: 0,
       colour: '#8ba4f3',
       title: 'Welcome!',
-      text: "Click the Add Note button to add a Note",
+      text: "Click the + button to add a Note",
       date: date.toString().substr(4,11)
   }
 
@@ -60,7 +60,7 @@ function App() {
       noteId: maxId,
       colour: addColour,
       title: 'New Note',
-      text: "Click the Edit Button to edit notes",
+      text: "Click the ✏️ Button to edit notes",
       date: date.toString().substr(4,11)
     }])
 
@@ -98,25 +98,18 @@ function App() {
             onChange={(ev) => setSearch(ev.target.value)}
             />
           </section>
-
-          <section className='App__add-supercont'>
-            <div className="App__add-cont">
-              <button className="App__add-btn" onClick={() => setColorAccToggle(!colorAccToggle)}>
-                <Plus className="App__add-icon"/>
-              </button>
-              {colorSelect()}
-            </div>
-          </section>
-          
         </section>
 
-        
+        <section className='App__add-supercont'>
+          <div className="App__add-cont">
+            <button className="App__add-btn" onClick={() => setColorAccToggle(!colorAccToggle)}>
+              <Plus className="App__add-icon"/>
+            </button>
+            {colorSelect()}
+          </div>
+        </section>
 
-
-        {/* dynamic search */}
         {/* night mode toggle */}
-
-        
 
       </div>
       <div className="App__main">
