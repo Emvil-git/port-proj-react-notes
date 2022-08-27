@@ -56,13 +56,15 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
                     type="text"
                     name="title"
                     value={eTitle}
-                    onChange={(ev) => setETitle(ev.target.value)}/>
+                    onChange={(ev) => setETitle(ev.target.value)}
+                    className="note__title--editing"/>
 
                 <input
                     type="text"
                     name="text"
                     value={eText}
-                    onChange={(ev) => setEText(ev.target.value)}/>
+                    onChange={(ev) => setEText(ev.target.value)}
+                    className="note__text--editing"/>
 
                 <section className="note__footer">
                     <span className="note__date">{date}</span>

@@ -15,6 +15,31 @@
         font-size: 1.25rem;
         margin: 0;
         margin-bottom: 0.5rem;
+
+        &--editing{
+            padding:0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            font-family: 'Quicksand', sans-serif;
+
+            outline: none;
+            border: none;
+            background: none;
+
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    &__text{
+        &--editing{
+            padding:0;
+            font-size: 1rem;
+            font-family: 'Quicksand', sans-serif;
+
+            outline: none;
+            border: none;
+            background: none;
+        }
     }
 
     &__footer{
@@ -28,6 +53,8 @@
     &__date{
         font-weight: 600;
         font-size: 0.85rem;
+
+        color: $dark-prim;
     }
 
     &__action-btn{
