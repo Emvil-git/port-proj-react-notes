@@ -69,7 +69,7 @@ function App() {
         {console.log('braces thing run')}
         {console.log(appNotes)}
         {console.log('-------------------')}
-        {Object.values(appNotes).map(note => <Note key={note.noteId} noteId={note.noteId} colour={note.colour} title={note.title} text={note.text} date={note.date} appNotes={appNotes} setAppNotes={setAppNotes}/>)}
+        {Object.values(appNotes).map(note => <Note key={note.noteId} nNoteId={note.noteId} colour={note.colour} title={note.title} text={note.text} date={note.date} appNotes={appNotes} setAppNotes={setAppNotes}/>)}
         {/* {appNotes.map(note => <Note key={note.noteId} noteId={note.noteId} colour={note.colour} title={note.title} text={note.text} date={note.date} appNotes={appNotes} setAppNotes={setAppNotes}/>)} */}
       </div>
     </div>

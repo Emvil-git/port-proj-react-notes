@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Pencil, CheckLg, Trash3 } from 'react-bootstrap-icons';
+import { Pencil, CheckLg, Trash3, MusicNoteBeamed } from 'react-bootstrap-icons';
 
-const Note = ({noteId, title, text, colour, date, appNotes, setAppNotes}) => {
+const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
 //CONSTANTS
     const [isStar, setIsStar] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -21,18 +21,34 @@ const Note = ({noteId, title, text, colour, date, appNotes, setAppNotes}) => {
     const handleEditSubmit = (event) => {
         event.preventDefault();
 
-        const editedNote = {
-            noteId,
-            colour,
-            title: eTitle,
-            text: eText,
-            date,
-        };
+        let cloneNotes = [...appNotes]
 
-        setAppNotes(...appNotes, appNotes[noteId] = editedNote);
+        cloneNotes.map((note) => {
+            if(note.noteId === nNoteId) {
+                note.title = eTitle;
+                note.text = eText;
+            }
+        })
+
+        console.log(cloneNotes)
+
+        setAppNotes(cloneNotes);
+        // setAppNotes([...appNotes, appNotes[noteId] = editedNote]);
         console.log(appNotes);
         setIsEditing(false);
         console.log('========EDITED!!==============')
+    }
+
+    const handleNoteDelete = (event) => {
+        event.preventDefault();
+
+        let cloneNotes = [...appNotes];
+
+        cloneNotes = cloneNotes.filter((note) => note.noteId !== nNoteId);
+        console.log(nNoteId)
+        console.log(cloneNotes);
+
+        setAppNotes(cloneNotes);
     }
 
     const editToggle = () => {
@@ -68,7 +84,7 @@ const Note = ({noteId, title, text, colour, date, appNotes, setAppNotes}) => {
                     <span className="note__date">{date}</span>
                     <section className="note__actions">
                         <button onClick={() => {setIsEditing(true)}}><Pencil/></button>
-                        <button><Trash3/></button>
+                        <button onClick={handleNoteDelete}><Trash3/></button>
                     </section>
                 </section>
             </div>
