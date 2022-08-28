@@ -48,11 +48,6 @@
         border: none;
         outline: none;
 
-        // &:focus{
-        //     background-color: $light-prim;
-
-        //     box-shadow: inset 0 0 0 1px $light-secd;
-        // }
     }
 
     &__add-supercont{
@@ -60,7 +55,6 @@
         width: 100%;
 
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
 
@@ -82,7 +76,7 @@
         box-shadow: 5px 5px 10px -4px rgba(0,0,0,0.27);
     }
 
-    &__add-btn{
+    &__add-btn, &__theme-btn{
         font-size: 1.5rem;
         margin: 0.25rem 0;
         // margin-left: -.7rem;
@@ -94,7 +88,13 @@
         border: none;
     }
 
-    &__add-icon{
+    &__theme-btn{
+        font-size: 1rem;
+        box-shadow: 5px 5px 10px -4px rgba(0,0,0,0.27);
+        margin-left: 1rem;
+    }
+
+    &__add-icon, &__theme-icon{
         margin-bottom: -.25rem;
     }
 

@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { PencilFill, CheckLg, Trash3Fill } from 'react-bootstrap-icons';
+import { useBEM } from "../hooks/useBEM";
 
 const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
 //CONSTANTS
+    const [B,E] = useBEM('note');
+
     const [isStar, setIsStar] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [eTitle, setETitle] = useState(title);
@@ -51,43 +54,42 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
 
     const editToggle = () => {
         if (isEditing) return(
-            <form className="note__body" onSubmit={handleEditSubmit}>
+            <form className={E('body')} onSubmit={handleEditSubmit}>
                 <input
                     type="text"
                     name="title"
                     value={eTitle}
                     onChange={(ev) => setETitle(ev.target.value)}
-                    className="note__title--editing"/>
+                    className={E('title--editing')} />
 
                 <input
                     type="text"
                     name="text"
                     value={eText}
                     onChange={(ev) => setEText(ev.target.value)}
-                    className="note__text--editing"/>
+                    className={E('text--editing')} />
 
-                <section className="note__footer">
-                    <span className="note__date">{date}</span>
-                    <section className="note__actions">
-                        <button type="submit" className="note__action-btn">
-                            <CheckLg className="note__btn-icon"/>
+                <section className={E('footer')} >
+                    <span className={E('date')}>{date}</span>
+                    <section className={E('actions')}>
+                        <button type="submit" className={E('action-btn')}>
+                            <CheckLg className={E('btn-icon')}/>
                         </button>
-                        {/* <input type="submit"></input> */}
                     </section>
                 </section>
             </form>
         );
 
         return(
-            <div className="note__body">
-                <h1 className="note__title">{title}</h1>
-                <span className="note__text">{text}</span>
+            <div className={E('body')}>
+                <h1 className={E('title')}>{title}</h1>
+                <span className={E('text')}>{text}</span>
 
-                <section className="note__footer">
-                    <span className="note__date">{date}</span>
-                    <section className="note__actions">
-                        <button className="note__action-btn" onClick={() => {setIsEditing(true)}}><PencilFill className="note__btn-icon"/></button>
-                        <button className="note__action-btn" onClick={handleNoteDelete}><Trash3Fill className="note__btn-icon"/></button>
+                <section className={E('footer')}>
+                    <span className={E('date')}>{date}</span>
+                    <section className={E('actions')}>
+                        <button className={E('action-btn')} onClick={() => {setIsEditing(true)}}><PencilFill className={E('btn-icon')}/></button>
+                        <button className={E('action-btn')} onClick={handleNoteDelete}><Trash3Fill className={E('btn-icon')}/></button>
                     </section>
                 </section>
             </div>
@@ -95,7 +97,7 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
     }
 
     return(
-        <div className="note" style={{background:colour}}>
+        <div className={B()} style={{background:colour}}>
             
             {editToggle()}
 

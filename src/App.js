@@ -1,9 +1,14 @@
 import React from 'react';
-import { Plus, Search } from 'react-bootstrap-icons';
+import { Plus, Search, MoonFill } from 'react-bootstrap-icons';
 import Note from './components/Note';
+import { useBEM } from './hooks/useBEM';
 
-const {useState} = React;
+const {useState, createContext} = React;
 
+// NIGHT/LIGHT THEME STUFF
+export const ThemeContext = createContext(null);
+
+// FOR UNIQUE NOTE ID
 let maxId = 1;
 
 function App() {
@@ -19,6 +24,9 @@ function App() {
   }
 
 //CONSTANTS
+  const [theme, setTheme] = useState("light");
+  const [B,E] = useBEM('App')
+
   const [appNotes, setAppNotes] = useState([initialState]);
   const [search, setSearch] = useState('');
   const [colorAccToggle, setColorAccToggle] = useState(false);
@@ -26,6 +34,10 @@ function App() {
   console.log(appNotes);
 
   //METHODS
+  const toggleTheme = () => {
+    setTheme((curr) => (curr === "light" ? "dark" : "light"))
+  }
+  
   const dynamicSearch = () => {
     return Object.values(appNotes)
     .filter(note => note.title.toLowerCase().includes(search.toLowerCase()) || note.text.toLowerCase().includes(search.toLowerCase()))
@@ -71,28 +83,29 @@ function App() {
   const colorSelect = () => {
     if(colorAccToggle) {
       return(
-        <section className="App__color-select">
-          <button className="App__color-btn--blue" value={"blue"} onClick={(ev) => handleAddNotes(ev)}></button>
-          <button className="App__color-btn--red" value={"red"} onClick={(ev) => handleAddNotes(ev)}></button>
-          <button className="App__color-btn--yellow" value={"yellow"} onClick={(ev) => handleAddNotes(ev)}></button>
-          <button className="App__color-btn--green" value={"green"} onClick={(ev) => handleAddNotes(ev)}></button>
+        <section className={E('color-select')}>
+          <button className={E('color-btn--blue')} value={"blue"} onClick={(ev) => handleAddNotes(ev)}></button>
+          <button className={E('color-btn--red')} value={"red"} onClick={(ev) => handleAddNotes(ev)}></button>
+          <button className={E('color-btn--yellow')} value={"yellow"} onClick={(ev) => handleAddNotes(ev)}></button>
+          <button className={E('color-btn--green')} value={"green"} onClick={(ev) => handleAddNotes(ev)}></button>
         </section>
       )
     }
   }
 
   return (
-    <div className="App">
-      <div className="App__toolbar">
+    <ThemeContext.Provider value={{theme, toggleTheme}}>
+      <div className={B()}>
+      <div className={E('toolbar')}>
         <section>
-          <h1 className="App__title">MK Notes</h1>
+          <h1 className={E('title')}>MK Notes</h1>
         </section>
 
         <section>
-          <section className="App__search-cont">
-            <Search className='App__search-icon'/>
+          <section className={E('search-cont')}>
+            <Search className={E('search-icon')}/>
             <input
-            className='App__dyna-search'
+            className={E('dyna-search')}
             placeholder='Search'
             value={search}
             onChange={(ev) => setSearch(ev.target.value)}
@@ -100,27 +113,27 @@ function App() {
           </section>
         </section>
 
-        <section className='App__add-supercont'>
-          <div className="App__add-cont">
-            <button className="App__add-btn" onClick={() => setColorAccToggle(!colorAccToggle)}>
-              <Plus className="App__add-icon"/>
+        <section className={E('add-supercont')}>
+          <div className={E('add-cont')}>
+            <button className={E('add-btn')} onClick={() => setColorAccToggle(!colorAccToggle)}>
+              <Plus className={E('add-icon')}/>
             </button>
             {colorSelect()}
           </div>
+
+          <button className={E('theme-btn')}>
+            <MoonFill className={E('theme-icon')}/>
+          </button>
         </section>
 
         {/* night mode toggle */}
 
       </div>
-      <div className="App__main">
-        {console.log('ALLNOTES:')}
-        {console.log(appNotes)}
-        {console.log('-------------------')}
-        {console.log('FILTERED NOTES:')}
-        {console.log(dynamicSearch())}
+      <div className={E('main')}>
         {dynamicSearch()}
       </div>
     </div>
+    </ThemeContext.Provider>
   );
 }
 
