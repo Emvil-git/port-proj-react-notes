@@ -115,7 +115,7 @@ function App() {
           <section className={eTheme('search-cont')}>
             <Search className={E('search-icon')}/>
             <input
-            className={E('dyna-search')}
+            className={eTheme('dyna-search')}
             placeholder='Search'
             value={search}
             onChange={(ev) => setSearch(ev.target.value)}
