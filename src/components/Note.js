@@ -83,7 +83,7 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
         return(
             <div className={E('body')}>
                 <h1 className={E('title')}>{title}</h1>
-                <span className={E('text')}>{text}</span>
+                <p className={E('text')}>{text}</p>
 
                 <section className={E('footer')}>
                     <span className={E('date')}>{date}</span>
