@@ -1,5 +1,16 @@
 .App{
 
+    margin: 0;
+    background-color: $light-prim;
+
+    height: 100vh;
+
+    &--dark{
+        background-color: $dark-secd;
+        
+        color: $light-prim;
+    }
+
     &__toolbar{
         // background-color: $light-secd;
         padding-top: 1rem;
@@ -29,6 +40,12 @@
         height: 2.5rem;
 
         border-radius: 25px;
+
+        &--dark{
+            background-color: $dark-prim;
+
+            color: $light-secd;
+        }
     }
 
     &__search-icon{
@@ -74,6 +91,11 @@
         background-color: $light-prim;
 
         box-shadow: 5px 5px 10px -4px rgba(0,0,0,0.27);
+
+        &--dark{
+            background-color: $dark-prim;
+            color: $light-prim;
+        }
     }
 
     &__add-btn, &__theme-btn{
@@ -92,10 +114,18 @@
         font-size: 1rem;
         box-shadow: 5px 5px 10px -4px rgba(0,0,0,0.27);
         margin-left: 1rem;
+
+        &--dark{
+            background: $dark-prim;
+        }
     }
 
     &__add-icon, &__theme-icon{
         margin-bottom: -.25rem;
+
+        &--dark{
+            color: $light-prim;
+        }
     }
 
     &__color-select{

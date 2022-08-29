@@ -3,7 +3,9 @@
 
     border-radius: 15px;
 
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+
+    color: $dark-prim;
 
     &__body{
         display: flex;
@@ -53,8 +55,6 @@
     &__date{
         font-weight: 600;
         font-size: 0.85rem;
-
-        color: $dark-prim;
     }
 
     &__action-btn{

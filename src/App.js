@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, Search, MoonFill } from 'react-bootstrap-icons';
+import { Plus, Search, MoonFill, SunFill } from 'react-bootstrap-icons';
 import Note from './components/Note';
 import { useBEM } from './hooks/useBEM';
 
@@ -38,6 +38,16 @@ function App() {
     setTheme((curr) => (curr === "light" ? "dark" : "light"))
   }
   
+  const bTheme = () => {
+    if(theme === "dark") return B("dark");
+    return B()
+  }
+
+  const eTheme = (classStr) => {
+    if(theme === "dark") return E(classStr, "dark");
+    return E(classStr)
+  }
+
   const dynamicSearch = () => {
     return Object.values(appNotes)
     .filter(note => note.title.toLowerCase().includes(search.toLowerCase()) || note.text.toLowerCase().includes(search.toLowerCase()))
@@ -95,14 +105,14 @@ function App() {
 
   return (
     <ThemeContext.Provider value={{theme, toggleTheme}}>
-      <div className={B()}>
+      <div className={bTheme()}>
       <div className={E('toolbar')}>
         <section>
           <h1 className={E('title')}>MK Notes</h1>
         </section>
 
         <section>
-          <section className={E('search-cont')}>
+          <section className={eTheme('search-cont')}>
             <Search className={E('search-icon')}/>
             <input
             className={E('dyna-search')}
@@ -114,15 +124,16 @@ function App() {
         </section>
 
         <section className={E('add-supercont')}>
-          <div className={E('add-cont')}>
+          <div className={eTheme('add-cont')}>
             <button className={E('add-btn')} onClick={() => setColorAccToggle(!colorAccToggle)}>
-              <Plus className={E('add-icon')}/>
+              <Plus className={eTheme('add-icon')}/>
             </button>
             {colorSelect()}
           </div>
 
-          <button className={E('theme-btn')}>
-            <MoonFill className={E('theme-icon')}/>
+          <button className={eTheme('theme-btn')} onClick={() => toggleTheme()}>
+            {(theme === "dark") ? <SunFill className={eTheme('theme-icon')}/> : <MoonFill className={eTheme('theme-icon')} />}
+            {/* <MoonFill className={handleTheme('theme-icon')} /> */}
           </button>
         </section>
 
