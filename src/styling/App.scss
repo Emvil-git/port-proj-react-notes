@@ -3,14 +3,15 @@
 
     display: flex;
     flex-direction: column;
-    // justify-content: center;
+    justify-items: center;
+    align-content: center;
     align-items: center;
 
     margin: 0;
     background-color: $light-prim;
 
     height: 100vh;
-
+    width: 100vw;
     &--dark{
         background-color: $dark-secd;
         
@@ -190,17 +191,14 @@
         width: 100%;
 
         overflow-y: scroll;
+
+        box-sizing: border-box;
     }
 }
 
-@media only screen and (min-width: 500px){
+@media only screen and (min-width: 425px){
     .App{
-        &__toolbar{
-            width: 97%;
-        }
-
         &__main{
-            width: 90%;
 
             display: grid;
             grid-template-columns: repeat(2, minmax(0,1fr));
@@ -208,7 +206,43 @@
             align-items: baseline;
             justify-items: center;
 
-            margin: 0 1rem;
+            padding: 0 1rem;
+        }
+    }
+}
+
+@media only screen and (min-width: 600px){
+    .App{
+        &__title{
+            margin-left: 7%;
+        }
+
+        &__search-cont{
+            margin: 0 7%;
+        }
+
+        &__main{
+            padding: 0 7%;
+        }
+    }
+}
+
+@media only screen and (min-width: 850px){
+    .App{
+        &__main{
+            grid-template-columns: repeat(3, minmax(0,1fr));
+        }
+    }
+}
+
+@media only screen and (min-width: 1080px){
+    .App{
+        &__toolbar{
+            margin-bottom: 2rem;
+        }
+
+        &__main{
+            grid-template-columns: repeat(4, minmax(0,1fr));
         }
     }
 }
