@@ -62,8 +62,7 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
                     onChange={(ev) => setETitle(ev.target.value)}
                     className={E('title--editing')} />
 
-                <input
-                    type="text"
+                <textarea
                     name="text"
                     value={eText}
                     onChange={(ev) => setEText(ev.target.value)}
