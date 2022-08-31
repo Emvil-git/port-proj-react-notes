@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTransition, animated } from 'react-spring';
 import { Plus, Search, MoonFill, SunFill } from 'react-bootstrap-icons';
 import Note from './components/Note';
 import { useBEM } from './hooks/useBEM';
@@ -31,6 +32,24 @@ function App() {
   const [search, setSearch] = useState('');
   const [colorAccToggle, setColorAccToggle] = useState(false);
 
+  const colorSelectTransition = useTransition(colorAccToggle, {
+    from: {width:0},
+    enter: {width:139},
+    leave: {width:0},
+  })
+
+  const addDivTransition = useTransition(colorAccToggle, {
+    from: {width: 48},
+    enter: {width: 187},
+    leave: {width: 48},
+  })
+
+  const noteTransition = useTransition(appNotes, {
+    from: {opacity: 0},
+    enter: {opacity: 1},
+    leave: {opacity: 0},
+  })
+
   console.log(appNotes);
 
   //METHODS
@@ -51,7 +70,8 @@ function App() {
   const dynamicSearch = () => {
     return Object.values(appNotes)
     .filter(note => note.title.toLowerCase().includes(search.toLowerCase()) || note.text.toLowerCase().includes(search.toLowerCase()))
-    .map(note => <Note key={note.noteId} nNoteId={note.noteId} colour={note.colour} title={note.title} text={note.text} date={note.date} appNotes={appNotes} setAppNotes={setAppNotes}/>)
+    .map(note => 
+    <Note key={note.noteId} nNoteId={note.noteId} colour={note.colour} title={note.title} text={note.text} date={note.date} appNotes={appNotes} setAppNotes={setAppNotes}/>)
   }
 
   const handleAddNotes = (ev) => {
@@ -90,18 +110,18 @@ function App() {
 
   }
 
-  const colorSelect = () => {
-    if(colorAccToggle) {
-      return(
-        <section className={E('color-select')}>
-          <button className={E('color-btn--blue')} value={"blue"} onClick={(ev) => handleAddNotes(ev)}></button>
-          <button className={E('color-btn--red')} value={"red"} onClick={(ev) => handleAddNotes(ev)}></button>
-          <button className={E('color-btn--yellow')} value={"yellow"} onClick={(ev) => handleAddNotes(ev)}></button>
-          <button className={E('color-btn--green')} value={"green"} onClick={(ev) => handleAddNotes(ev)}></button>
-        </section>
-      )
-    }
-  }
+  // const colorSelect = () => {
+  //   if(colorAccToggle) {
+  //     return(
+  //       <section className={E('color-select')}>
+  //         <button className={E('color-btn--blue')} value={"blue"} onClick={(ev) => handleAddNotes(ev)}></button>
+  //         <button className={E('color-btn--red')} value={"red"} onClick={(ev) => handleAddNotes(ev)}></button>
+  //         <button className={E('color-btn--yellow')} value={"yellow"} onClick={(ev) => handleAddNotes(ev)}></button>
+  //         <button className={E('color-btn--green')} value={"green"} onClick={(ev) => handleAddNotes(ev)}></button>
+  //       </section>
+  //     )
+  //   }
+  // }
 
   return (
     <ThemeContext.Provider value={{theme, toggleTheme}}>
@@ -124,12 +144,79 @@ function App() {
         </section>
 
         <section className={E('add-supercont')}>
+          
+          {!colorAccToggle ?
           <div className={eTheme('add-cont')}>
             <button className={E('add-btn')} onClick={() => setColorAccToggle(!colorAccToggle)}>
               <Plus className={eTheme('add-icon')}/>
             </button>
-            {colorSelect()}
           </div>
+          :
+          addDivTransition((style, div) => 
+          
+            div ? 
+            <animated.div style={style} className={eTheme('add-cont')}>
+            <button className={E('add-btn')} onClick={() => setColorAccToggle(!colorAccToggle)}>
+              <Plus className={eTheme('add-icon')}/>
+            </button>
+            {colorSelectTransition((style, item) => 
+            
+            item ? <animated.section style ={style} className={E('color-select')}>
+              <button className={E('color-btn--blue')} value={"blue"} onClick={(ev) => handleAddNotes(ev)}></button>
+              <button className={E('color-btn--red')} value={"red"} onClick={(ev) => handleAddNotes(ev)}></button>
+              <button className={E('color-btn--yellow')} value={"yellow"} onClick={(ev) => handleAddNotes(ev)}></button>
+              <button className={E('color-btn--green')} value={"green"} onClick={(ev) => handleAddNotes(ev)}></button>
+            </animated.section> : ''
+
+            )}
+            </animated.div> : ''
+          )
+          }
+
+        {/* <section className={E('add-supercont')}>
+          <div className={eTheme('add-cont')}>
+            <button className={E('add-btn')} onClick={() => setColorAccToggle(!colorAccToggle)}>
+              <Plus className={eTheme('add-icon')}/>
+            </button>
+          </div>
+
+          {addDivTransition((style, div) => 
+          
+            div ? 
+            <animated.div style={style} className={eTheme('add-cont')}>
+            <button className={E('add-btn')} onClick={() => setColorAccToggle(!colorAccToggle)}>
+              <Plus className={eTheme('add-icon')}/>
+            </button>
+            {colorSelectTransition((style, item) => 
+            
+            item ? <animated.section style ={style} className={E('color-select')}>
+              <button className={E('color-btn--blue')} value={"blue"} onClick={(ev) => handleAddNotes(ev)}></button>
+              <button className={E('color-btn--red')} value={"red"} onClick={(ev) => handleAddNotes(ev)}></button>
+              <button className={E('color-btn--yellow')} value={"yellow"} onClick={(ev) => handleAddNotes(ev)}></button>
+              <button className={E('color-btn--green')} value={"green"} onClick={(ev) => handleAddNotes(ev)}></button>
+            </animated.section> : ''
+
+            )}
+            </animated.div> : ''
+
+          )} */}
+
+          {/* <div className={eTheme('add-cont')}>
+            <button className={E('add-btn')} onClick={() => setColorAccToggle(!colorAccToggle)}>
+              <Plus className={eTheme('add-icon')}/>
+            </button>
+            {colorSelectTransition((style, item) => 
+            
+            item ? <animated.section style ={style} className={E('color-select')}>
+              <button className={E('color-btn--blue')} value={"blue"} onClick={(ev) => handleAddNotes(ev)}></button>
+              <button className={E('color-btn--red')} value={"red"} onClick={(ev) => handleAddNotes(ev)}></button>
+              <button className={E('color-btn--yellow')} value={"yellow"} onClick={(ev) => handleAddNotes(ev)}></button>
+              <button className={E('color-btn--green')} value={"green"} onClick={(ev) => handleAddNotes(ev)}></button>
+            </animated.section> : ''
+
+            )} */}
+            {/* {colorSelect()} */}
+          {/* </div> */}
 
           <button className={eTheme('theme-btn')} onClick={() => toggleTheme()}>
             {(theme === "dark") ? <SunFill className={eTheme('theme-icon')}/> : <MoonFill className={eTheme('theme-icon')} />}

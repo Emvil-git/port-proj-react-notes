@@ -7,6 +7,8 @@
 
     color: $dark-prim;
 
+    box-sizing: border-box;
+
     &__body{
         display: flex;
         flex-direction: column;
@@ -35,6 +37,8 @@
     &__text{
         margin: 0;
         overflow-wrap: break-word;
+
+        // line-height: 1.5rem;
 
         &--editing{
             padding:0;

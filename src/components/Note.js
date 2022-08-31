@@ -95,11 +95,34 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
         )
     }
 
+    const getLnHt = () => {
+        const noteThing = document.querySelector('.note');
+        const txtThing = document.querySelector('.note__text');
+
+        console.log('----------------')
+
+        console.log(nNoteId)
+
+        if(noteThing.clientHeight !== null){
+            console.log('note height')
+            console.log(noteThing.clientHeight);
+        }  
+
+        if(txtThing.clientHeight !== null){
+            console.log('text ln height')
+            console.log(txtThing.clientHeight);
+        }     
+
+        console.log('----------------')
+    }
+
+
     return(
         <div className={B()} style={{background:colour}}>
             
             {editToggle()}
 
+            {/* {getLnHt()} */}
         </div>
     )
 }

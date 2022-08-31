@@ -146,11 +146,13 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
+
+        overflow-x: hidden;
     }
 
     &__color-btn--blue, &__color-btn--red, &__color-btn--yellow, &__color-btn--green{
         height: 1.75rem;
-        width: 1.75rem;
+        min-width: 1.75rem;
         border-radius: 100%;
         outline: none;
         border: none;
@@ -202,6 +204,9 @@
 
             display: grid;
             grid-template-columns: repeat(2, minmax(0,1fr));
+            // grid-template-rows: auto;
+            // grid-auto-rows: 1.5rem;
+            // grid-row-gap: 0.5rem;
             grid-column-gap: 0.5rem;
             align-items: baseline;
             justify-items: center;
