@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTransition, animated } from 'react-spring';
+import { useTransition, animated, useSpring } from 'react-spring';
 import { Plus, Search, MoonFill, SunFill } from 'react-bootstrap-icons';
 import Note from './components/Note';
 import { useBEM } from './hooks/useBEM';
@@ -12,7 +12,7 @@ export const ThemeContext = createContext(null);
 // FOR UNIQUE NOTE ID
 let maxId = 1;
 
-function App() {
+const App = () => {
 //INITIALIZE NOTE
   const date = new Date();
   
@@ -48,6 +48,14 @@ function App() {
     from: {opacity: 0},
     enter: {opacity: 1},
     leave: {opacity: 0},
+  })
+
+  console.log(theme)
+
+  const nightModeAnim = useSpring({
+    background: (theme === "dark") ? "#323739" : "#f9f9fa",
+    color: (theme === "dark") ? "#f9f9fa" : "#1d1f20"
+    // from:{boxShadow: (theme === "light") ? `inset 0px 100vh 0px 0px #323739` : "none"}
   })
 
   console.log(appNotes);
@@ -125,7 +133,7 @@ function App() {
 
   return (
     <ThemeContext.Provider value={{theme, toggleTheme}}>
-      <div className={bTheme()}>
+      <animated.div className={B()} style={nightModeAnim}>
       <div className={E('toolbar')}>
         <section>
           <h1 className={E('title')}>MK Notes</h1>
@@ -224,13 +232,11 @@ function App() {
           </button>
         </section>
 
-        {/* night mode toggle */}
-
       </div>
       <div className={E('main')}>
         {dynamicSearch()}
       </div>
-    </div>
+    </animated.div>
     </ThemeContext.Provider>
   );
 }

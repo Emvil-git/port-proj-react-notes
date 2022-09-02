@@ -15,6 +15,8 @@
     &--dark{
         background-color: $dark-secd;
         
+        box-shadow: inset 0 100vh 0 0 $dark-secd;
+
         color: $light-prim;
     }
 
