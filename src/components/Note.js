@@ -52,6 +52,12 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
         setAppNotes(cloneNotes);
     }
 
+    const charsIndicator = () => {
+        let charsLen = eText.length;
+        let charsStr = charsLen + "/140"
+        return charsStr;
+    }
+
     const editToggle = () => {
         if (isEditing) return(
             <form className={E('body')} onSubmit={handleEditSubmit}>
@@ -63,13 +69,14 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
                     className={E('title--editing')} />
 
                 <textarea
+                    maxLength={140}
                     name="text"
                     value={eText}
                     onChange={(ev) => setEText(ev.target.value)}
                     className={E('text--editing')} />
 
                 <section className={E('footer')} >
-                    <span className={E('date')}>{date}</span>
+                    <span className={E('date')}>{charsIndicator()}</span>
                     <section className={E('actions')}>
                         <button type="submit" className={E('action-btn')}>
                             <CheckLg className={E('btn-icon')}/>
