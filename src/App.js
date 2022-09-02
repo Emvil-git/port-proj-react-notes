@@ -58,6 +58,10 @@ const App = () => {
     // from:{boxShadow: (theme === "light") ? `inset 0px 100vh 0px 0px #323739` : "none"}
   })
 
+  const addColorAnim = useSpring({
+    width: colorAccToggle ? '187px' : '48px'
+  })
+
   console.log(appNotes);
 
   //METHODS
@@ -153,7 +157,25 @@ const App = () => {
 
         <section className={E('add-supercont')}>
           
-          {!colorAccToggle ?
+          <animated.div style={addColorAnim} className={eTheme('add-cont')}>
+            <button className={E('add-btn')} onClick={() => setColorAccToggle(!colorAccToggle)}>
+              <Plus className={eTheme('add-icon')}/>
+            </button>
+            {colorSelectTransition((style, item) => 
+            
+            item ? <animated.section style ={style} className={E('color-select')}>
+              <button className={E('color-btn--blue')} value={"blue"} onClick={(ev) => handleAddNotes(ev)}></button>
+              <button className={E('color-btn--red')} value={"red"} onClick={(ev) => handleAddNotes(ev)}></button>
+              <button className={E('color-btn--yellow')} value={"yellow"} onClick={(ev) => handleAddNotes(ev)}></button>
+              <button className={E('color-btn--green')} value={"green"} onClick={(ev) => handleAddNotes(ev)}></button>
+            </animated.section> : ''
+
+            )}
+          </animated.div>
+
+          {/* ANIMATION USING useTransition HOOK */}
+
+          {/* {!colorAccToggle ?
           <div className={eTheme('add-cont')}>
             <button className={E('add-btn')} onClick={() => setColorAccToggle(!colorAccToggle)}>
               <Plus className={eTheme('add-icon')}/>
@@ -179,52 +201,7 @@ const App = () => {
             )}
             </animated.div> : ''
           )
-          }
-
-        {/* <section className={E('add-supercont')}>
-          <div className={eTheme('add-cont')}>
-            <button className={E('add-btn')} onClick={() => setColorAccToggle(!colorAccToggle)}>
-              <Plus className={eTheme('add-icon')}/>
-            </button>
-          </div>
-
-          {addDivTransition((style, div) => 
-          
-            div ? 
-            <animated.div style={style} className={eTheme('add-cont')}>
-            <button className={E('add-btn')} onClick={() => setColorAccToggle(!colorAccToggle)}>
-              <Plus className={eTheme('add-icon')}/>
-            </button>
-            {colorSelectTransition((style, item) => 
-            
-            item ? <animated.section style ={style} className={E('color-select')}>
-              <button className={E('color-btn--blue')} value={"blue"} onClick={(ev) => handleAddNotes(ev)}></button>
-              <button className={E('color-btn--red')} value={"red"} onClick={(ev) => handleAddNotes(ev)}></button>
-              <button className={E('color-btn--yellow')} value={"yellow"} onClick={(ev) => handleAddNotes(ev)}></button>
-              <button className={E('color-btn--green')} value={"green"} onClick={(ev) => handleAddNotes(ev)}></button>
-            </animated.section> : ''
-
-            )}
-            </animated.div> : ''
-
-          )} */}
-
-          {/* <div className={eTheme('add-cont')}>
-            <button className={E('add-btn')} onClick={() => setColorAccToggle(!colorAccToggle)}>
-              <Plus className={eTheme('add-icon')}/>
-            </button>
-            {colorSelectTransition((style, item) => 
-            
-            item ? <animated.section style ={style} className={E('color-select')}>
-              <button className={E('color-btn--blue')} value={"blue"} onClick={(ev) => handleAddNotes(ev)}></button>
-              <button className={E('color-btn--red')} value={"red"} onClick={(ev) => handleAddNotes(ev)}></button>
-              <button className={E('color-btn--yellow')} value={"yellow"} onClick={(ev) => handleAddNotes(ev)}></button>
-              <button className={E('color-btn--green')} value={"green"} onClick={(ev) => handleAddNotes(ev)}></button>
-            </animated.section> : ''
-
-            )} */}
-            {/* {colorSelect()} */}
-          {/* </div> */}
+          } */}
 
           <button className={eTheme('theme-btn')} onClick={() => toggleTheme()}>
             {(theme === "dark") ? <SunFill className={eTheme('theme-icon')}/> : <MoonFill className={eTheme('theme-icon')} />}
