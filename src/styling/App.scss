@@ -150,6 +150,7 @@
         align-items: center;
 
         overflow-x: hidden;
+        
     }
 
     &__color-btn--blue, &__color-btn--red, &__color-btn--yellow, &__color-btn--green{
@@ -163,7 +164,10 @@
         transition: 0.2s;
 
         &:hover{
-            margin-top: -.5rem;
+        //    transform: translateY(-0.5rem);
+
+        transform: scale(1.1);
+        box-shadow: 3px 3px 10px -4px rgba(0,0,0,0.27);
         }
     }
 
