@@ -58,6 +58,14 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
         return charsStr;
     }
 
+    const titleTooLong = () => {
+        let titleDisp = '';
+
+        (title.length > 25) ? titleDisp = title.substring(0,21) + '...' : titleDisp = title;
+        
+        return titleDisp;
+    }
+
     const editToggle = () => {
         if (isEditing) return(
             <form className={E('body')} onSubmit={handleEditSubmit}>
@@ -88,7 +96,7 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
 
         return(
             <div className={E('body')}>
-                <h1 className={E('title')}>{title}</h1>
+                <h1 className={E('title')}>{titleTooLong()}</h1>
                 <p className={E('text')}>{text}</p>
 
                 <section className={E('footer')}>
