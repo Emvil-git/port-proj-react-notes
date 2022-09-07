@@ -3,6 +3,7 @@ import { useTransition, animated, useSpring } from 'react-spring';
 import { Plus, Search, MoonFill, SunFill } from 'react-bootstrap-icons';
 import Note from './components/Note';
 import { useBEM } from './hooks/useBEM';
+import NightModeToggle from './components/NightModeToggle';
 
 const {useState, createContext} = React;
 
@@ -166,6 +167,8 @@ const App = () => {
             : <MoonFill style={themeIconTransition} className={eTheme('theme-icon')} />}
             {/* <MoonFill className={handleTheme('theme-icon')} /> */}
           </button>
+
+          <NightModeToggle/>
         </section>
 
       </div>

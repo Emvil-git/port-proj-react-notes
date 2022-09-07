@@ -105,6 +105,8 @@
 
         box-shadow: 5px 5px 10px -4px rgba(0,0,0,0.27);
 
+        transition: 0.01s;
+
         &--dark{
             background-color: $dark-prim;
             color: $light-prim;
@@ -133,6 +135,7 @@
         &--dark{
             background: $dark-prim;
         }
+        
     }
 
     &__add-icon, &__theme-icon{

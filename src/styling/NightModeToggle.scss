@@ -1,0 +1,47 @@
+.NightToggle{
+    height: 3rem;
+
+    width: 5rem;
+
+    box-shadow:inset 3px 3px 6px -4px rgba(0,0,0,0.27);
+
+    border-radius: 25px;
+
+    background: $light-secd;
+
+    position: relative;
+
+    &__switch{
+        position: absolute;
+
+        z-index: 9;
+
+        height: 3rem;
+        width: 3rem;
+
+        border-radius: 25px;
+
+        background-color: $light-prim;
+
+        box-shadow:5px 5px 10px -4px rgba(0,0,0,0.27);
+
+        transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+        &:hover{
+            transform: translateX(2rem);
+        }
+    }
+
+    &__icons-cont{
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+
+        height: 3rem;
+        width: 5rem;
+
+        align-items: center;
+        justify-items: center;
+
+        font-size: 1rem;
+    }
+}
