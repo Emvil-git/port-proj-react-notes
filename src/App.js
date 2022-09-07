@@ -33,7 +33,7 @@ const App = () => {
   const [search, setSearch] = useState('');
   const [colorAccToggle, setColorAccToggle] = useState(false);
 
-//ANIMATION METHODS
+//ANIMATION STUFF
 
   const colorSelectTransition = useTransition(colorAccToggle, {
     from: {width:0},
@@ -162,13 +162,7 @@ const App = () => {
             )}
           </animated.div>
 
-          <button className={eTheme('theme-btn')} onClick={() => toggleTheme()}>
-            {(theme === "dark") ? <SunFill style={themeIconTransition} className={eTheme('theme-icon')}/>
-            : <MoonFill style={themeIconTransition} className={eTheme('theme-icon')} />}
-            {/* <MoonFill className={handleTheme('theme-icon')} /> */}
-          </button>
-
-          <NightModeToggle/>
+          <NightModeToggle theme={theme} toggleTheme={toggleTheme}/>
         </section>
 
       </div>
