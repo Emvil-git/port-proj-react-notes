@@ -85,7 +85,9 @@ const App = () => {
     return Object.values(appNotes)
     .filter(note => note.title.toLowerCase().includes(search.toLowerCase()) || note.text.toLowerCase().includes(search.toLowerCase()))
     .map(note => 
-    <Note key={note.noteId} nNoteId={note.noteId} colour={note.colour} title={note.title} text={note.text} date={note.date} appNotes={appNotes} setAppNotes={setAppNotes}/>)
+    <Note key={note.noteId} note={note} appNotes={appNotes} setAppNotes={setAppNotes}/>)
+    // .map(note => 
+    // <Note key={note.noteId} nNoteId={note.noteId} colour={note.colour} title={note.title} text={note.text} date={note.date} appNotes={appNotes} setAppNotes={setAppNotes}/>)
   }
 
   const handleAddNotes = (ev) => {

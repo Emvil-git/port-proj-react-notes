@@ -2,9 +2,11 @@ import { useState } from "react";
 import { PencilFill, CheckLg, Trash3Fill } from 'react-bootstrap-icons';
 import { useBEM } from "../hooks/useBEM";
 
-const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
+const Note = ({note, appNotes, setAppNotes}) => {
 //CONSTANTS
     const [B,E] = useBEM('note');
+
+    const {noteId, colour, title, text, date} = note;
 
     const [isStar, setIsStar] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -26,7 +28,7 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
         let cloneNotes = [...appNotes]
 
         cloneNotes.map((note) => {
-            if(note.noteId === nNoteId) {
+            if(note.noteId === noteId) {
                 note.title = eTitle;
                 note.text = eText;
             }
@@ -45,8 +47,8 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
 
         let cloneNotes = [...appNotes];
 
-        cloneNotes = cloneNotes.filter((note) => note.noteId !== nNoteId);
-        console.log(nNoteId)
+        cloneNotes = cloneNotes.filter((note) => note.noteId !== noteId);
+        console.log(noteId)
         console.log(cloneNotes);
 
         setAppNotes(cloneNotes);
@@ -116,7 +118,7 @@ const Note = ({nNoteId, title, text, colour, date, appNotes, setAppNotes}) => {
 
         console.log('----------------')
 
-        console.log(nNoteId)
+        console.log(noteId)
 
         if(noteThing.clientHeight !== null){
             console.log('note height')
