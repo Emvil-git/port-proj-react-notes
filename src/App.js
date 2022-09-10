@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTransition, animated, useSpring } from 'react-spring';
-import { Plus, Search, MoonFill, SunFill } from 'react-bootstrap-icons';
+import { Plus, Search } from 'react-bootstrap-icons';
 import Note from './components/Note';
 import { useBEM } from './hooks/useBEM';
 import NightModeToggle from './components/NightModeToggle';
+import { openDB } from 'idb'; 
 
 const {useState, createContext} = React;
 
@@ -25,13 +26,31 @@ const App = () => {
       date: date.toString().substr(4,11)
   }
 
-//CONSTANTS
+//STATE STUFF
   const [theme, setTheme] = useState("light");
   const [B,E] = useBEM('App')
 
   const [appNotes, setAppNotes] = useState([initialState]);
   const [search, setSearch] = useState('');
   const [colorAccToggle, setColorAccToggle] = useState(false);
+
+//EFFECTS
+
+  useEffect(() => {
+    (async () => {
+        const dbName = "Notes_db1"
+        const storeName = "store1"
+        const version = 1
+
+        await openDB(dbName, version, {
+          upgrade(db) {
+            db.createObjectStore(storeName, {
+              autoIncrement: true,
+            })
+          }
+        })
+    })()
+  }, []);
 
 //ANIMATION STUFF
 
