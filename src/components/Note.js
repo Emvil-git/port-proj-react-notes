@@ -8,20 +8,11 @@ const Note = ({note, appNotes, setAppNotes}) => {
 
     const {noteId, colour, title, text, date} = note;
 
-    const [isStar, setIsStar] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [eTitle, setETitle] = useState(title);
     const [eText, setEText] = useState(text);
 
 //METHODS
-
-    const starIndicate = () => {
-        if(isStar) return <button></button>;
-        return <button></button>
-    // TODO:
-    // notes star indication function
-    }
-
     const handleEditSubmit = (event) => {
         event.preventDefault();
 
@@ -111,28 +102,6 @@ const Note = ({note, appNotes, setAppNotes}) => {
             </div>
         )
     }
-
-    const getLnHt = () => {
-        const noteThing = document.querySelector('.note');
-        const txtThing = document.querySelector('.note__text');
-
-        console.log('----------------')
-
-        console.log(noteId)
-
-        if(noteThing.clientHeight !== null){
-            console.log('note height')
-            console.log(noteThing.clientHeight);
-        }  
-
-        if(txtThing.clientHeight !== null){
-            console.log('text ln height')
-            console.log(txtThing.clientHeight);
-        }     
-
-        console.log('----------------')
-    }
-
 
     return(
         <div className={B()} style={{background:colour}}>

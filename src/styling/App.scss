@@ -21,7 +21,6 @@
     }
 
     &__toolbar{
-        // background-color: $light-secd;
         padding-top: 1rem;
         margin-bottom: 1rem;
 
@@ -116,7 +115,6 @@
     &__add-btn, &__theme-btn{
         font-size: 1.5rem;
         margin: 0.25rem 0;
-        // margin-left: -.7rem;
         background: none;
         border-radius: 100%;
         height: 3rem;
@@ -167,8 +165,6 @@
         transition: 0.2s;
 
         &:hover{
-        //    transform: translateY(-0.5rem);
-
         transform: scale(1.1);
         box-shadow: 3px 3px 10px -4px rgba(0,0,0,0.27);
         }
@@ -215,9 +211,6 @@
 
             display: grid;
             grid-template-columns: repeat(2, minmax(0,1fr));
-            // grid-template-rows: auto;
-            // grid-auto-rows: 1.5rem;
-            // grid-row-gap: 0.5rem;
             grid-column-gap: 0.5rem;
             align-items: baseline;
             justify-items: center;
