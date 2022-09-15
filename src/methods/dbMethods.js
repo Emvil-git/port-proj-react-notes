@@ -21,4 +21,19 @@ const dbGetNotes = async () => {
     return res;
 }
 
+const dbDelNote = async (noteId) => {
+    const db = await openDB(name, version);
+
+    const tx = db.transaction(storeName, 'readwrite');
+    const index = tx.store.index('noteId');
+
+    for await (const cursor of index.iterate()) {
+      const article = { ...cursor.value };
+      article.body += ' And, happy new year!';
+      cursor.update(article);
+    }
+
+    await tx.done;
+}
+
 export default { dbAddNote, dbGetNotes };
