@@ -5,6 +5,8 @@ import Note from './components/Note';
 import { useBEM } from './hooks/useBEM';
 import NightModeToggle from './components/NightModeToggle';
 import { openDB } from 'idb'; 
+import { dbConfig } from './dbConfig';
+import dbMethods from './methods/dbMethods';
 
 const {useState, createContext} = React;
 
@@ -26,31 +28,51 @@ const App = () => {
       date: date.toString().substr(4,11)
   }
 
-//STATE STUFF
+// STATE STUFF
   const [theme, setTheme] = useState("light");
   const [B,E] = useBEM('App')
 
-  const [appNotes, setAppNotes] = useState([initialState]);
+  const [appNotes, setAppNotes] = useState([]);
+  // const [isFirstRodeo, setIsFirstRodeo] = useState(true);
   const [search, setSearch] = useState('');
   const [colorAccToggle, setColorAccToggle] = useState(false);
+
+// DB CONSTANTS
+  const dbName = dbConfig.name;
+  const dbVersion = dbConfig.version;
+  const notesStore = dbConfig.objectStoresMeta[0];
+
+  const storeName = notesStore.storeName;
+  const storeConfig = notesStore.storeConfig;
+
+  console.log(dbName, dbVersion, notesStore);
 
 //EFFECTS
 
   useEffect(() => {
     (async () => {
-        const dbName = "Notes_db1"
-        const storeName = "store1"
-        const version = 1
-
-        await openDB(dbName, version, {
+        await openDB(dbName, dbVersion, {
           upgrade(db) {
-            db.createObjectStore(storeName, {
-              autoIncrement: true,
-            })
+            db.createObjectStore(storeName, storeConfig)
           }
         })
     })()
   }, []);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     if (isFirstRodeo) {dbAddNote(initialState)};
+  //     setIsFirstRodeo(false);
+  //   })()
+  // },[]
+  // )
+
+  useEffect(() => {
+    (async () => {
+      setAppNotes(await dbGetNotes());
+      console.log(appNotes);
+    })()
+  }, [])
 
 //ANIMATION STUFF
 
@@ -60,11 +82,11 @@ const App = () => {
     leave: {width:0},
   })
 
-  const noteTransition = useTransition(appNotes, {
-    from: {opacity: 0},
-    enter: {opacity: 1},
-    leave: {opacity: 0},
-  })
+  // const noteTransition = useTransition(appNotes, {
+  //   from: {opacity: 0},
+  //   enter: {opacity: 1},
+  //   leave: {opacity: 0},
+  // })
 
   const nightModeAnim = useSpring({
     background: (theme === "dark") ? "#323739" : "#f9f9fa",
@@ -75,15 +97,9 @@ const App = () => {
     width: colorAccToggle ? '187px' : '48px'
   })
 
-  const themeIconTransition = useSpring({
-    transform: "translateY(0)",
-    from:{
-      transform: "translateY(50rem)"
-    },
-    leave:{
-      transform: "translateY(-50rem)"
-    }
-  })
+  // DB METHODS
+
+  const { dbAddNote, dbGetNotes } = dbMethods
 
   //METHODS
   const toggleTheme = () => {
@@ -107,12 +123,12 @@ const App = () => {
     <Note key={note.noteId} note={note} appNotes={appNotes} setAppNotes={setAppNotes}/>)
   }
 
-  const handleAddNotes = (ev) => {
+  const handleAddNotes = async (ev) => {
     ev.preventDefault();
 
     const date = new Date();
 
-    maxId++;
+    const maxId = appNotes.length + 1;
 
     let addColour = "";
 
@@ -131,17 +147,39 @@ const App = () => {
         break;
     }
 
-    setAppNotes([...appNotes, {
-      noteId: maxId,
-      colour: addColour,
-      title: 'New Note',
-      text: "Click the ✏️ Button to edit notes",
-      date: date.toString().substr(4,11)
-    }])
+    const newNote = {
+        noteId: maxId,
+        colour: addColour,
+        title: 'New Note',
+        text: "Click the ✏️ Button to edit notes",
+        date: date.toString().substr(4,11)
+      }
+
+    dbAddNote(newNote);  
+    setAppNotes(await dbGetNotes());
+
+    // setAppNotes([...appNotes, {
+    //   noteId: maxId,
+    //   colour: addColour,
+    //   title: 'New Note',
+    //   text: "Click the ✏️ Button to edit notes",
+    //   date: date.toString().substr(4,11)
+    // }])
 
     setColorAccToggle(false);
-
   }
+
+  // const mockGet = async () => {
+  //   const db = await openDB(dbName, dbVersion);
+  //   const tx = db.transaction(storeName, "readwrite");
+  //   const store = tx.objectStore(storeName);
+  //   console.log(await store.getAll());
+  //   await tx.done;
+  // }
+
+  // mockGet();
+
+  console.log(appNotes);
 
   return (
     <ThemeContext.Provider value={{theme, toggleTheme}}>
