@@ -53,7 +53,8 @@ const App = () => {
     (async () => {
         await openDB(dbName, dbVersion, {
           upgrade(db) {
-            db.createObjectStore(storeName, storeConfig)
+            const store = db.createObjectStore(storeName, storeConfig);
+            store.createIndex('noteId', 'noteId');
           }
         })
     })()
@@ -128,7 +129,7 @@ const App = () => {
 
     const date = new Date();
 
-    const maxId = appNotes.length + 1;
+    const maxId = appNotes.length;
 
     let addColour = "";
 

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { PencilFill, CheckLg, Trash3Fill } from 'react-bootstrap-icons';
 import { useBEM } from "../hooks/useBEM";
+import dbMethods from '../methods/dbMethods';
+
+const { dbGetNotes, dbDelNote } = dbMethods;
 
 const Note = ({note, appNotes, setAppNotes}) => {
 //CONSTANTS
@@ -33,16 +36,30 @@ const Note = ({note, appNotes, setAppNotes}) => {
         console.log('========EDITED!!==============')
     }
 
-    const handleNoteDelete = (event) => {
+    // const handleNoteDelete = (event) => {
+    //     event.preventDefault();
+
+    //     let cloneNotes = [...appNotes];
+
+    //     cloneNotes = cloneNotes.filter((note) => note.noteId !== noteId);
+    //     console.log(noteId)
+    //     console.log(cloneNotes);
+
+    //     setAppNotes(cloneNotes);
+    // }
+
+    const handleNoteDelete = async (event) => {
         event.preventDefault();
 
-        let cloneNotes = [...appNotes];
+        await dbDelNote(noteId);
 
-        cloneNotes = cloneNotes.filter((note) => note.noteId !== noteId);
-        console.log(noteId)
-        console.log(cloneNotes);
+        // let cloneNotes = [...appNotes];
 
-        setAppNotes(cloneNotes);
+        // cloneNotes = cloneNotes.filter((note) => note.noteId !== noteId);
+        // console.log(noteId)
+        // console.log(cloneNotes);
+
+        setAppNotes(await dbGetNotes());
     }
 
     const charsIndicator = () => {

@@ -16,24 +16,29 @@ const dbGetNotes = async () => {
     const res = await store.getAll().then(res => {return res});
     await tx.done;
 
-    console.log('===|RESULTS|=============================');
+    console.log('===========================|RESULTS|=============================');
     console.log(res);
     return res;
 }
 
 const dbDelNote = async (noteId) => {
     const db = await openDB(name, version);
-
     const tx = db.transaction(storeName, 'readwrite');
-    const index = tx.store.index('noteId');
 
-    for await (const cursor of index.iterate()) {
-      const article = { ...cursor.value };
-      article.body += ' And, happy new year!';
-      cursor.update(article);
+    let cursor = await tx.store.openCursor();
+
+    while (cursor.key <= noteId) {
+        if (cursor.key == noteId) {
+            cursor.delete();
+            break;
+        }
+        cursor = await cursor.continue();
     }
 
     await tx.done;
 }
 
-export default { dbAddNote, dbGetNotes };
+
+
+
+export default { dbAddNote, dbGetNotes, dbDelNote };
