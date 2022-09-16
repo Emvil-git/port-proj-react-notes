@@ -13,13 +13,11 @@ const {useState, createContext} = React;
 // NIGHT/LIGHT THEME STUFF
 export const ThemeContext = createContext(null);
 
-// FOR UNIQUE NOTE ID
-let maxId = 1;
-
 const App = () => {
 //INITIALIZE NOTE
   const date = new Date();
   
+  // welcome note for seeding into indexed db
   const initialState = {
       noteId: 0,
       colour: '#8ba4f3',
@@ -33,6 +31,9 @@ const App = () => {
   const [B,E] = useBEM('App')
 
   const [appNotes, setAppNotes] = useState([]);
+
+// state variable for seeding the welcome note
+
   // const [isFirstRodeo, setIsFirstRodeo] = useState(true);
   const [search, setSearch] = useState('');
   const [colorAccToggle, setColorAccToggle] = useState(false);
@@ -41,11 +42,14 @@ const App = () => {
   const dbName = dbConfig.name;
   const dbVersion = dbConfig.version;
   const notesStore = dbConfig.objectStoresMeta[0];
+  const appStore = dbConfig.objectStoresMeta[1];
 
+  // idb - notes store config
   const storeName = notesStore.storeName;
   const storeConfig = notesStore.storeConfig;
 
-  console.log(dbName, dbVersion, notesStore);
+  // idb - app store config (persistent app state)
+  const aStoreName = appStore.storeName;
 
 //EFFECTS
 
@@ -54,11 +58,14 @@ const App = () => {
         await openDB(dbName, dbVersion, {
           upgrade(db) {
             const store = db.createObjectStore(storeName, storeConfig);
+            const aStore = db.createObjectStore(aStoreName);
             store.createIndex('noteId', 'noteId');
           }
         })
     })()
   }, []);
+
+// useEffect for seeding the welcome note
 
   // useEffect(() => {
   //   (async () => {
@@ -71,7 +78,6 @@ const App = () => {
   useEffect(() => {
     (async () => {
       setAppNotes(await dbGetNotes());
-      console.log(appNotes);
     })()
   }, [])
 
@@ -83,12 +89,6 @@ const App = () => {
     leave: {width:0},
   })
 
-  // const noteTransition = useTransition(appNotes, {
-  //   from: {opacity: 0},
-  //   enter: {opacity: 1},
-  //   leave: {opacity: 0},
-  // })
-
   const nightModeAnim = useSpring({
     background: (theme === "dark") ? "#323739" : "#f9f9fa",
     color: (theme === "dark") ? "#f9f9fa" : "#1d1f20"
@@ -99,7 +99,6 @@ const App = () => {
   })
 
   // DB METHODS
-
   const { dbAddNote, dbGetNotes } = dbMethods
 
   //METHODS
@@ -129,7 +128,9 @@ const App = () => {
 
     const date = new Date();
 
-    const maxId = appNotes.length;
+    const noteIds = appNotes.map(note => {return note.noteId});
+
+    const maxId = Math.max(...noteIds) + 1;
 
     let addColour = "";
 
@@ -159,28 +160,8 @@ const App = () => {
     dbAddNote(newNote);  
     setAppNotes(await dbGetNotes());
 
-    // setAppNotes([...appNotes, {
-    //   noteId: maxId,
-    //   colour: addColour,
-    //   title: 'New Note',
-    //   text: "Click the ✏️ Button to edit notes",
-    //   date: date.toString().substr(4,11)
-    // }])
-
     setColorAccToggle(false);
   }
-
-  // const mockGet = async () => {
-  //   const db = await openDB(dbName, dbVersion);
-  //   const tx = db.transaction(storeName, "readwrite");
-  //   const store = tx.objectStore(storeName);
-  //   console.log(await store.getAll());
-  //   await tx.done;
-  // }
-
-  // mockGet();
-
-  console.log(appNotes);
 
   return (
     <ThemeContext.Provider value={{theme, toggleTheme}}>

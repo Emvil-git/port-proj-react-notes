@@ -5,6 +5,10 @@ export const dbConfig = {
         {
             storeName: "notesStore",
             storeConfig: {keyPath: 'noteId'}
+        },
+        {
+            storeName: "appStore",
+            storeConfig: {},
         }
     ]
 }

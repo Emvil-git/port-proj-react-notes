@@ -2,7 +2,8 @@ import { openDB } from 'idb';
 import { dbConfig } from "../dbConfig";
 
 const { name, version, objectStoresMeta } = dbConfig;
-const { storeName, storeConfig } = objectStoresMeta[0];
+const { storeName } = objectStoresMeta[0];
+const aStoreName = objectStoresMeta[1].storeName;
 
 const dbAddNote = async (nuNote) => {
     const db = await openDB(name, version);
@@ -26,7 +27,7 @@ const dbDelNote = async (noteId) => {
     let cursor = await tx.store.openCursor();
 
     while (cursor.key <= noteId) {
-        if (cursor.key == noteId) {
+        if (cursor.key === noteId) {
             cursor.delete();
             break;
         }
@@ -46,7 +47,7 @@ const dbUpdateNote = async (noteId, noteTitle, noteText) => {
 
         const note = {...cursor.value};
 
-        if (cursor.key == noteId) {
+        if (cursor.key === noteId) {
             note.title = noteTitle;
             note.text = noteText;
             cursor.update(note);
@@ -57,6 +58,51 @@ const dbUpdateNote = async (noteId, noteTitle, noteText) => {
     }
 
     await tx.done;
+}
+
+const dbGetAppStatus = async () => {
+    const db = await openDB(name, version);
+    const tx = db.transaction(aStoreName, 'readwrite');
+    const store = tx.objectStore(aStoreName);
+
+    const res = await store.getAll().then(res => {return res});
+    await tx.done;
+
+    return res;
+}
+
+const dbInitAppStatus = async () => {
+    const initAppStatus = {
+        firstRodeo: true,
+        idCount: 1,
+        theme: 'light',
+    }
+
+    const db = openDB(name, version);
+    await db.add(aStoreName, initAppStatus);
+}
+
+const dbUpdateSettings = async (arg) => {
+    const db = openDB(name, version);
+
+    const tx = db.transaction(aStoreName, 'readwrite');
+
+    let cursor = await tx.store.openCursor();
+
+    // switch (true) {
+    //     case (typeof arg === 'boolean')
+    // }
+
+    // while (cursor) {
+
+    //     const settings = {...cursor.value};
+        
+    //     settings.firstRodeo = false;
+    //     cursor.update(note);
+    //     break;
+
+    //     cursor = await cursor.continue();
+    // }
 }
 
 
