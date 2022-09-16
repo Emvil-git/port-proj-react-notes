@@ -3,7 +3,7 @@ import { PencilFill, CheckLg, Trash3Fill } from 'react-bootstrap-icons';
 import { useBEM } from "../hooks/useBEM";
 import dbMethods from '../methods/dbMethods';
 
-const { dbGetNotes, dbDelNote } = dbMethods;
+const { dbGetNotes, dbDelNote, dbUpdateNote } = dbMethods;
 
 const Note = ({note, appNotes, setAppNotes}) => {
 //CONSTANTS
@@ -16,48 +16,19 @@ const Note = ({note, appNotes, setAppNotes}) => {
     const [eText, setEText] = useState(text);
 
 //METHODS
-    const handleEditSubmit = (event) => {
+    const handleEditSubmit = async (event) => {
         event.preventDefault();
 
-        let cloneNotes = [...appNotes]
+        await dbUpdateNote(noteId, eTitle, eText);
 
-        cloneNotes.map((note) => {
-            if(note.noteId === noteId) {
-                note.title = eTitle;
-                note.text = eText;
-            }
-        })
-
-        console.log(cloneNotes)
-
-        setAppNotes(cloneNotes);
-        console.log(appNotes);
+        setAppNotes(await dbGetNotes());
         setIsEditing(false);
-        console.log('========EDITED!!==============')
     }
-
-    // const handleNoteDelete = (event) => {
-    //     event.preventDefault();
-
-    //     let cloneNotes = [...appNotes];
-
-    //     cloneNotes = cloneNotes.filter((note) => note.noteId !== noteId);
-    //     console.log(noteId)
-    //     console.log(cloneNotes);
-
-    //     setAppNotes(cloneNotes);
-    // }
 
     const handleNoteDelete = async (event) => {
         event.preventDefault();
 
         await dbDelNote(noteId);
-
-        // let cloneNotes = [...appNotes];
-
-        // cloneNotes = cloneNotes.filter((note) => note.noteId !== noteId);
-        // console.log(noteId)
-        // console.log(cloneNotes);
 
         setAppNotes(await dbGetNotes());
     }
@@ -125,7 +96,6 @@ const Note = ({note, appNotes, setAppNotes}) => {
             
             {editToggle()}
 
-            {/* {getLnHt()} */}
         </div>
     )
 }
