@@ -172,7 +172,11 @@ const App = () => {
   const noNotes = () => {
     return(
       <div className={eTheme('no-notes')}>
-        <p >'Click the </p> <PlusCircle className={eTheme('no-notes-logo')}/> <p> to Add a Note'</p>
+        <p >'Click </p>
+        <div className={eTheme('add-btn-mock')}>
+          <Plus className={eTheme('add-icon-mock')}/>
+        </div>
+        <p> to Add a Note'</p>
       </div>
     )
   }

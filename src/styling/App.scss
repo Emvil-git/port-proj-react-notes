@@ -229,6 +229,36 @@
     &__no-notes p{
         margin: 0;
     }
+
+    &__add-btn-mock{
+
+        margin: 0 0.75rem;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        height:3rem;
+        width: 3rem;
+        border-radius: 25px;
+
+        background-color: $light-prim;
+
+        box-shadow: 5px 5px 10px -4px rgba(0,0,0,0.27);
+
+        transition: 0.05s cubic-bezier(0.65,0.05,0.36,1);
+
+        &--dark{
+            background-color: $dark-prim;
+            color: $light-prim;
+        }
+    }
+
+    &__add-icon-mock{
+        margin-top: 0.25rem;
+        font-size: 1.5rem;
+    }
 }
 
 @media only screen and (min-width: 425px){
