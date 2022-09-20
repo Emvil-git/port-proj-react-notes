@@ -57,9 +57,8 @@ const App = () => {
     (async () => {
         await openDB(dbName, dbVersion, {
           upgrade(db) {
-            const store = db.createObjectStore(storeName, storeConfig);
-            const aStore = db.createObjectStore(aStoreName);
-            store.createIndex('noteId', 'noteId');
+            db.createObjectStore(storeName, storeConfig);
+            db.createObjectStore(aStoreName);
           }
         })
     })()
@@ -69,7 +68,10 @@ const App = () => {
 
   // useEffect(() => {
   //   (async () => {
-  //     if (isFirstRodeo) {dbAddNote(initialState)};
+  //     if (isFirstRodeo) {
+  //       dbAddNote(initialState)
+  //       dbInitAppStatus()
+  //     };
   //     setIsFirstRodeo(false);
   //   })()
   // },[]
@@ -99,7 +101,7 @@ const App = () => {
   })
 
   // DB METHODS
-  const { dbAddNote, dbGetNotes } = dbMethods
+  const { dbAddNote, dbGetNotes, dbInitAppStatus } = dbMethods
 
   //METHODS
   const toggleTheme = () => {

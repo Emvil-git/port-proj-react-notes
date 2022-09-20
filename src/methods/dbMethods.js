@@ -74,7 +74,6 @@ const dbGetAppStatus = async () => {
 const dbInitAppStatus = async () => {
     const initAppStatus = {
         firstRodeo: true,
-        idCount: 1,
         theme: 'light',
     }
 
@@ -90,7 +89,11 @@ const dbUpdateSettings = async (arg) => {
     let cursor = await tx.store.openCursor();
 
     // switch (true) {
-    //     case (typeof arg === 'boolean')
+    //     case (typeof arg === 'boolean'):
+
+            
+
+    //         break;
     // }
 
     // while (cursor) {
@@ -106,4 +109,4 @@ const dbUpdateSettings = async (arg) => {
 }
 
 
-export default { dbAddNote, dbGetNotes, dbDelNote, dbUpdateNote };
+export default { dbAddNote, dbGetNotes, dbDelNote, dbUpdateNote, dbInitAppStatus };
