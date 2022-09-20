@@ -132,7 +132,9 @@ const App = () => {
 
     const noteIds = appNotes.map(note => {return note.noteId});
 
-    const maxId = Math.max(...noteIds) + 1;
+    let maxId = Math.max(...noteIds) + 1;
+
+    if (maxId === -Infinity) {maxId = 0};
 
     let addColour = "";
 
