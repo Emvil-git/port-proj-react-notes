@@ -171,8 +171,8 @@ const App = () => {
 
   const noNotes = () => {
     return(
-      <div>
-        <p>'Click the </p> <PlusCircle/> <p> to Add a Note'</p>
+      <div className={eTheme('no-notes')}>
+        <p >'Click the </p> <PlusCircle className={eTheme('no-notes-logo')}/> <p> to Add a Note'</p>
       </div>
     )
   }
@@ -223,9 +223,9 @@ const App = () => {
         </section>
 
       </div>
+
       <div className={E('main')}>
         {hasNotesCheck()}
-        {/* {dynamicSearch()} */}
       </div>
     </animated.div>
     </ThemeContext.Provider>

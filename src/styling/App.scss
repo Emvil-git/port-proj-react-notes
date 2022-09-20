@@ -12,6 +12,8 @@
 
     height: 100vh;
     width: 100vw;
+
+    transition: 0.1s cubic-bezier(0.65,0.05,0.36,1);
     &--dark{
         background-color: $dark-secd;
         
@@ -88,6 +90,7 @@
         align-items: center;
 
         bottom: 3%;
+        
     }
 
     &__add-cont{
@@ -104,7 +107,7 @@
 
         box-shadow: 5px 5px 10px -4px rgba(0,0,0,0.27);
 
-        transition: 0.01s;
+        transition: 0.05s cubic-bezier(0.65,0.05,0.36,1);
 
         &--dark{
             background-color: $dark-prim;
@@ -202,6 +205,29 @@
         overflow-y: auto;
 
         box-sizing: border-box;
+    }
+
+    &__no-notes{
+        grid-column: 1/span 4;
+
+        display: flex;
+        height: 70vh;
+        width: 100%;
+
+        justify-content: center;
+        align-items: center;
+
+        font-size: 3rem;
+
+        &-logo{
+            margin: 0 0.75rem;
+            margin-top: 5px;
+
+        }
+    }
+
+    &__no-notes p{
+        margin: 0;
     }
 }
 
