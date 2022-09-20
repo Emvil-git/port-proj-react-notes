@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTransition, animated, useSpring } from 'react-spring';
-import { Plus, Search } from 'react-bootstrap-icons';
+import { Plus, Search, PlusCircle } from 'react-bootstrap-icons';
 import Note from './components/Note';
 import { useBEM } from './hooks/useBEM';
 import NightModeToggle from './components/NightModeToggle';
@@ -76,6 +76,8 @@ const App = () => {
   //   })()
   // },[]
   // )
+
+
 
   useEffect(() => {
     (async () => {
@@ -167,6 +169,18 @@ const App = () => {
     setColorAccToggle(false);
   }
 
+  const noNotes = () => {
+    return(
+      <div>
+        <p>'Click the </p> <PlusCircle/> <p> to Add a Note'</p>
+      </div>
+    )
+  }
+
+  const hasNotesCheck = () => {
+    return (!appNotes.length) ?  noNotes() : dynamicSearch()
+  }
+
   return (
     <ThemeContext.Provider value={{theme, toggleTheme}}>
       <animated.div className={B()} style={nightModeAnim}>
@@ -210,7 +224,8 @@ const App = () => {
 
       </div>
       <div className={E('main')}>
-        {dynamicSearch()}
+        {hasNotesCheck()}
+        {/* {dynamicSearch()} */}
       </div>
     </animated.div>
     </ThemeContext.Provider>
