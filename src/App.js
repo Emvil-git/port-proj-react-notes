@@ -155,10 +155,12 @@ const App = () => {
         break;
     }
 
+    const newTitle = (maxId === 0) ? 'New Note' : 'New Note'.concat(" ", maxId);
+
     const newNote = {
         noteId: maxId,
         colour: addColour,
-        title: 'New Note',
+        title: newTitle,
         text: "Click the ✏️ Button to edit notes",
         date: date.toString().substr(4,11)
       }
@@ -172,11 +174,11 @@ const App = () => {
   const noNotes = () => {
     return(
       <div className={eTheme('no-notes')}>
-        <p >'Click </p>
+        <p >Click </p>
         <div className={eTheme('add-btn-mock')}>
           <Plus className={eTheme('add-icon-mock')}/>
         </div>
-        <p> to Add a Note'</p>
+        <p> to Add a Note</p>
       </div>
     )
   }
