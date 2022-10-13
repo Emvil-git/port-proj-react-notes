@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useTransition, animated, useSpring } from 'react-spring';
+import { useTransition, animated, useSpring, config } from 'react-spring';
 import { Plus, Search, PlusCircle } from 'react-bootstrap-icons';
 import Note from './components/Note';
 import { useBEM } from './hooks/useBEM';
@@ -91,15 +91,19 @@ const App = () => {
     from: {width:0},
     enter: {width:139},
     leave: {width:0},
+    config: {duration: 300},
   })
 
   const nightModeAnim = useSpring({
-    background: (theme === "dark") ? "#323739" : "#f9f9fa",
-    color: (theme === "dark") ? "#f9f9fa" : "#1d1f20"
+    boxShadow: (theme === "dark") ? "0px 100vh 0px 0px #323739 inset" : "0px 0px 0px 0px #323739 inset",
+    // background: (theme === "dark") ? "#323739" : "#f9f9fa",
+    color: (theme === "dark") ? "#f9f9fa" : "#1d1f20",
+    config: {duration: 300},
   })
 
   const addColorAnim = useSpring({
-    width: colorAccToggle ? '187px' : '48px'
+    width: colorAccToggle ? '187px' : '48px',
+    config: config.default,
   })
 
   // DB METHODS
